@@ -1,4 +1,4 @@
 grunt-preload-assets
 ====================
 
-A Grunt plugin for generating preload assets manifest files
+A Grunt plugin for generating preload assets manifest files.
