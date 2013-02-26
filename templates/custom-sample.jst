@@ -5,10 +5,10 @@
 *
 * @example
 *
-*		var width = <%-obj.key%>["img/side_blue1.png"].w;
+*		var width = <%-obj.key%>["img/side_blue1.png"].w
 *
 */ 
-var <%-obj.key%> = <%-obj.key%> || {};
+var <%-obj.key%> = <%-obj.key%> || {}
 <%-obj.key%> = {<%_.forEach(obj.files, function (files, i) {%>
 	"<%-files.src%>": {},
 <%}%>
