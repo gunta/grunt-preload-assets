@@ -40,7 +40,8 @@ module.exports = function (grunt) {
 			custom_options: {
 				options: {
 					separator: ': ',
-					punctuation: ' !!!'
+					punctuation: ' !!!',
+					template: 'custom-sample.jst'
 				},
 				files: {
 					'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']

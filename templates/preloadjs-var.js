@@ -1,4 +1,4 @@
-print('var = [\n');
+print('var = '+ obj.key +'[\n');
 _.forEach(obj.files, function (files, i) {
 	print('\t{');
 	if (files.src) {
