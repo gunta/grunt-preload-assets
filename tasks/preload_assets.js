@@ -57,7 +57,7 @@ module.exports = function (grunt) {
 			key: 'preloadFiles',
 			punctuation: '.',
 			separator: ', ',
-			template: 'preloadjs-var.js',
+			template: 'preloadjs-var.jst',
 			processContent: function (src) {
 				return src;
 			}
@@ -67,20 +67,37 @@ module.exports = function (grunt) {
 
 		grunt.verbose.writeflags(options, 'Options');
 
-
 		var templatePath = "templates/" + options.template;
 
 		var tpl = options.processContent(grunt.file.read(templatePath));
 
-		// If the extension is .js, add delimiters so the template it's easy to read
-		if (path.extname(templatePath) === ".js") {
-			tpl = "<%" + tpl + "%>";
-		}
-
 		var compiled, filename;
 
+//		var data = {
+//			key: "filesToPreload",
+//			files: [
+//				[
+//					{id: "folderImage"},
+//					{src: "folder/image.png"}
+//				],
+//				[
+//					{id: "folder/sound2"},
+//					{src: "folder/sound2.mp3"},
+//					{type: "SOUND"},
+//					{bytes: 1231251, last:true}
+//				],
+//				[
+//					{src: "folder/image3.jpg"},
+//					{width: 480},
+//					{height: 640, lastProperty:true},
+//					{lastFile: true}
+//				]
+//			],
+//			totalBytes: 1234567
+//		};
+
 		var data = {
-			key: "preloadMe",
+			key: "filesToPreload",
 			files: [
 				{
 					id: "folderImage",
@@ -101,6 +118,12 @@ module.exports = function (grunt) {
 			totalBytes: 1234567
 		};
 
+		// Mark as last
+		if (data.files && data.files.length > 0) {
+			data.files[data.files.length - 1].lastFile = true;
+		}
+
+		// Compile
 		try {
 			compiled = _.template(tpl, data, {});
 		} catch (e) {

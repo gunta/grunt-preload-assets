@@ -1,17 +1,5 @@
-var <%= obj.key %> = [<%_.forEach(obj.files, function(files,i) {%>
-	{<%
-	if (files.src) {
-	  	//print('src: "' + files.src + '"' + ', ')
-	}
-	if (files.id) {
-		//print('id: "' + files.src + '"' + ', ')
-	}
-	if (files.type) {
-   		//print('type: createjs.LoadQueue.' + files.type + ', ')
-    }
-    //print(i)
+var <%= obj.key %> = [<%_.each(obj.files, function(files,i) {%>
+	{<%if(files.src){%>src: "<%=files.src%>", <%} if(files.type){%>type: createjs.LoadQueue.<%=files.type%>, <%}
 
-	print(_.keys())
-
-	%>},<%})%>
+    %>}<%if(!files.lastFile){%>,<%} })%>
 ];
