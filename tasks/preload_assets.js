@@ -73,29 +73,6 @@ module.exports = function (grunt) {
 
 		var compiled, filename;
 
-//		var data = {
-//			key: "filesToPreload",
-//			files: [
-//				[
-//					{id: "folderImage"},
-//					{src: "folder/image.png"}
-//				],
-//				[
-//					{id: "folder/sound2"},
-//					{src: "folder/sound2.mp3"},
-//					{type: "SOUND"},
-//					{bytes: 1231251, last:true}
-//				],
-//				[
-//					{src: "folder/image3.jpg"},
-//					{width: 480},
-//					{height: 640, lastProperty:true},
-//					{lastFile: true}
-//				]
-//			],
-//			totalBytes: 1234567
-//		};
-
 		var data = {
 			key: "filesToPreload",
 			files: [
@@ -117,11 +94,6 @@ module.exports = function (grunt) {
 			],
 			totalBytes: 1234567
 		};
-
-		// Mark as last
-		if (data.files && data.files.length > 0) {
-			data.files[data.files.length - 1].lastFile = true;
-		}
 
 		// Compile
 		try {
