@@ -29,7 +29,6 @@ module.exports = function (grunt) {
 	// SAMPLE
 	// https://github.com/gruntjs/grunt-contrib-jst/blob/master/tasks/jst.js
 
-
 	var getTypeByExtension = function (extension) {
 		switch (extension) {
 			case "jpeg":
@@ -64,6 +63,7 @@ module.exports = function (grunt) {
 			key: 'filesManifest',
 			template: 'custom-sample',
 			basePath: undefined,
+			ignoreBasePath: undefined,
 			processContent: function (src) {
 				return src;
 			},
@@ -101,11 +101,11 @@ module.exports = function (grunt) {
 				key: "filesToPreload",
 				files: [
 					{
-						id: "xfolderImagex",
+						id: "folderImagex",
 						src: "folder/image.png"
 					},
 					{
-						id: "xfolder/sound2x",
+						id: "folder/sound2x",
 						src: "folder/sound2.mp3",
 						type: "SOUND",
 						bytes: 1231251
@@ -165,7 +165,6 @@ module.exports = function (grunt) {
 			try {
 				grunt.file.write(file.dest, compiled);
 				grunt.verbose.writeln(compiled);
-
 				grunt.log.writeln('File "' + file.dest + '" created.');
 			} catch (e) {
 				grunt.log.error(e);
@@ -173,5 +172,4 @@ module.exports = function (grunt) {
 			}
 		});
 	});
-
 };
