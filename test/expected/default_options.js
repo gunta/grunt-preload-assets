@@ -1,7 +1,7 @@
 var filesManifest = [
-	{id: 'testFixturesGenericButton', src: 'test/fixtures/genericButton.png', type: createjs.LoadQueue.IMAGE},
-	{id: 'testFixturesGenericButtonOver', src: 'test/fixtures/genericButtonOver.png', type: createjs.LoadQueue.IMAGE},
-	{id: 'testFixturesParallaxHill1', src: 'test/fixtures/parallaxHill1.png', type: createjs.LoadQueue.IMAGE},
-	{id: 'testFixturesSky', src: 'test/fixtures/sky.png', type: createjs.LoadQueue.IMAGE},
-	{id: 'testFixturesImage2', src: 'test/fixtures/image2.jpg', type: createjs.LoadQueue.IMAGE}
+	{id: 'genericButton', src: 'genericButton.png', type: createjs.LoadQueue.IMAGE, bytes: 2832},
+	{id: 'genericButtonOver', src: 'genericButtonOver.png', type: createjs.LoadQueue.IMAGE, bytes: 3039},
+	{id: 'parallaxHill1', src: 'parallaxHill1.png', type: createjs.LoadQueue.IMAGE, bytes: 1665},
+	{id: 'sky', src: 'sky.png', type: createjs.LoadQueue.IMAGE, bytes: 1032},
+	{id: 'image2', src: 'image2.jpg', type: createjs.LoadQueue.IMAGE, bytes: 39141}
 ];

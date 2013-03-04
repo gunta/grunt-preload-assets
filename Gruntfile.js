@@ -33,6 +33,7 @@ module.exports = function (grunt) {
 			default_options: {
 				options: {
 //					basePath: 'test/',
+					ignoreBasePath: 'test/fixtures/',
 					template: 'preloadjs-var'
 				},
 				files: {
@@ -46,6 +47,22 @@ module.exports = function (grunt) {
 				},
 				files: {
 					'tmp/custom_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
+				}
+			},
+			fulljson_options: {
+				options: {
+					template: 'full-json'
+				},
+				files: {
+					'tmp/fulljson_options.json': ['test/fixtures/*.*']
+				}
+			},
+			csv_options: {
+				options: {
+					template: 'filelist-csv'
+				},
+				files: {
+					'tmp/csv_options.csv': ['test/fixtures/*.*']
 				}
 			}
 		},

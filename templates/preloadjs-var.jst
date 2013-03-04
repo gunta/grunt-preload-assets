@@ -8,7 +8,7 @@ var <%= obj.key %> = [<%_.each(obj.files, function(file,i) {%>
         if(prop=='id'){%>id: '<%=value%>'<%if(pl!==p++){%>, <%}}
         if(prop=='src'){%>src: '<%=value%>'<%if(pl!==p++){%>, <%}}
         if(prop=='type'){%>type: createjs.LoadQueue.<%=value%><%if(pl!==p++){%>, <%}}
-        if(prop=='bytes'){%>bytes: '<%=value%>'<%if(pl!==p++){%>, <%}}
+        if(prop=='bytes'){%>bytes: <%=value%><%if(pl!==p++){%>, <%}}
     });
 
     %>}<%if(_.size(obj.files)!==i+1){%>,<%} })%>

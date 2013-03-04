@@ -11,7 +11,8 @@
 module.exports = function (grunt) {
 
 	// NodeJS libs
-	var path = require('path');
+	var path = require('path'),
+		fs = require('fs');
 
 	// External libs
 	var _ = require('lodash');
@@ -19,6 +20,45 @@ module.exports = function (grunt) {
 	// Mixin Underscore.string methods
 	_.str = require('underscore.string');
 	_.mixin(_.str.exports());
+
+//	function readSizeRecursive(item, cb) {
+//		fs.lstat(item, function (err, stats) {
+//			var total = stats.size;
+//
+//			if (!err && stats.isDirectory()) {
+//				fs.readdir(item, function (err, list) {
+//					async.forEach(
+//						list,
+//						function (diritem, callback) {
+//							readSizeRecursive(path.join(item, diritem), function (err, size) {
+//								total += size;
+//								callback(err);
+//							});
+//						},
+//						function (err) {
+//							cb(err, total);
+//						}
+//					);
+//				});
+//			}
+//			else {
+//				cb(err, total);
+//			}
+//		});
+//	}
+
+	function getFileSizeInBytes(filepath) {
+		var stats = fs.lstatSync(filepath);
+		return stats.size;
+	}
+
+	function getPathWithoutBasePath(path, ignoreBasePath) {
+		if (ignoreBasePath) {
+			return _.strRightBack(path, ignoreBasePath);
+		} else {
+			return path;
+		}
+	}
 
 
 	// Filename conversion for templates
@@ -81,6 +121,7 @@ module.exports = function (grunt) {
 		// If the extension is .jst, treat as preset template
 		if (path.extname(options.template) !== ".jst") {
 			grunt.log.debug("Trying to use preset template files.");
+			// TODO: read from package folder
 			var defaultTemplate = "./templates/" + options.template + '.jst';
 			if (grunt.file.exists(defaultTemplate)) {
 				options.template = defaultTemplate;
@@ -140,8 +181,9 @@ module.exports = function (grunt) {
 			}).map(function (filepath) {
 					// Add file src
 					var fileProps = {};
-					fileProps.src = filepath;
-					grunt.verbose.writeln('Reading ' + filepath);
+					fileProps.src = getPathWithoutBasePath(filepath, options.ignoreBasePath);
+					fileProps.origSrc = filepath;
+					grunt.verbose.writeln('Listing ' + filepath);
 					outputData.files.push(fileProps);
 				});
 
@@ -151,6 +193,8 @@ module.exports = function (grunt) {
 				f.id = options.processId(f);
 
 				f.type = options.processType(f);
+
+				f.bytes = getFileSizeInBytes(f.origSrc);
 			});
 
 			var compiled;
@@ -164,6 +208,7 @@ module.exports = function (grunt) {
 
 			try {
 				grunt.file.write(file.dest, compiled);
+				grunt.verbose.writeln("\nCompiling template for file...");
 				grunt.verbose.writeln(compiled);
 				grunt.log.writeln('File "' + file.dest + '" created.');
 			} catch (e) {
