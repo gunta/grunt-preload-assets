@@ -1,14 +1,13 @@
 {
 	"<%= obj.key %>": {
-		"files": [<%_.each(obj.files, function(file,i) {%>
-			{
-				<%
+		"files": {<%_.each(obj.files, function(file,i) {%>
+			<%
 				var props = _.pick(file, 'id', 'src', 'type', 'bytes'),
 					pl = _.size(props),
 					p=1;
 
 				_.each(props, function(value, prop) {
-			        if(prop=='id'){%>"id": "<%=value%>"<%if(pl!==p++){%>,
+			        if(prop=='id'){%>"<%=value%>"<%if(pl!==p++){%>: {
 			    <%}}
 			        if(prop=='src'){%>"src": "<%=value%>"<%if(pl!==p++){%>,
 			    <%}}
@@ -20,7 +19,7 @@
 
 	        %>
 	        }<%if(_.size(obj.files)!==i+1){%>,<%} })%>
-        ]<%if(obj.totalBytes) {%>,
+        }<%if(obj.totalBytes) {%>,
         "totalBytes": <%= obj.totalBytes %><%}%>
     }
 }

@@ -8,7 +8,7 @@ Work In Progress (!)
 
 Add to your `package.json` entry:
 	
-	"grunt-contrib-manifest": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
+	"grunt-preload-assets": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
 
 Or just use:
 
@@ -21,15 +21,15 @@ Or just use:
 ### Current 0.1.0
 
 
-
 ### Roadmap 0.1.1
 - Add md5 support
-- Add JSON template OK
 - Add flag for optional switching of options
 - Add timestamp support
-- Add totalBytes support
-- Add csv support OK
 
+	DONE:
+- Added JSON template, with key and array version
+- Added CSV support
+- Added totalBytes support
 
 ### Roadmap 0.1.2
 - Consider ignoreBasePath naming

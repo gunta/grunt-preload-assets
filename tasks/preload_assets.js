@@ -187,6 +187,8 @@ module.exports = function (grunt) {
 					outputData.files.push(fileProps);
 				});
 
+			var totalBytes = 0;
+
 			// Generate ID for each file
 			_.each(outputData.files, function (f) {
 				// TODO: if enabled
@@ -195,7 +197,10 @@ module.exports = function (grunt) {
 				f.type = options.processType(f);
 
 				f.bytes = getFileSizeInBytes(f.origSrc);
+				totalBytes += f.bytes;
 			});
+
+			outputData.totalBytes = totalBytes;
 
 			var compiled;
 			// Compile

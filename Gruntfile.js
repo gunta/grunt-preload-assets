@@ -57,6 +57,15 @@ module.exports = function (grunt) {
 					'tmp/fulljson_options.json': ['test/fixtures/*.*']
 				}
 			},
+			fulljson_idkey_options: {
+				options: {
+					template: 'full-json-idkey',
+					ignoreBasePath: 'test/'
+				},
+				files: {
+					'tmp/fulljson_idkey_options.json': ['test/fixtures/*.*']
+				}
+			},
 			csv_options: {
 				options: {
 					template: 'filelist-csv'
