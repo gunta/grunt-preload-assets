@@ -32,19 +32,20 @@ module.exports = function (grunt) {
 		preload_assets: {
 			default_options: {
 				options: {
+//					basePath: 'test/',
+					template: 'preloadjs-var'
 				},
 				files: {
-					'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
+					'tmp/default_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
 				}
 			},
 			custom_options: {
 				options: {
-					separator: ': ',
-					punctuation: ' !!!',
-					template: 'custom-sample.jst'
+//					basePath: 'test/',
+					template: 'custom-sample-var'
 				},
 				files: {
-					'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
+					'tmp/custom_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
 				}
 			}
 		},

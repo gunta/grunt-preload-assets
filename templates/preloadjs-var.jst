@@ -1,12 +1,13 @@
 var <%= obj.key %> = [<%_.each(obj.files, function(file,i) {%>
 	{<%
-	var props = _.pick(file, 'src', 'type', 'bytes'),
+	var props = _.pick(file, 'id', 'src', 'type', 'bytes'),
 		pl = _.size(props),
 		p=1;
 
 	_.each(props, function(value, prop) {
+        if(prop=='id'){%>id: '<%=value%>'<%if(pl!==p++){%>, <%}}
         if(prop=='src'){%>src: '<%=value%>'<%if(pl!==p++){%>, <%}}
-        if(prop=='type'){%>type: createjs.LoadQueue.<%=value%>'<%if(pl!==p++){%>, <%}}
+        if(prop=='type'){%>type: createjs.LoadQueue.<%=value%><%if(pl!==p++){%>, <%}}
         if(prop=='bytes'){%>bytes: '<%=value%>'<%if(pl!==p++){%>, <%}}
     });
 
