@@ -18,33 +18,6 @@ module.exports = function (grunt) {
 	var _ = grunt.util._;
 	var async = grunt.util.async;
 
-
-//	function readSizeRecursive(item, cb) {
-//		fs.lstat(item, function (err, stats) {
-//			var total = stats.size;
-//
-//			if (!err && stats.isDirectory()) {
-//				fs.readdir(item, function (err, list) {
-//					async.forEach(
-//						list,
-//						function (diritem, callback) {
-//							readSizeRecursive(path.join(item, diritem), function (err, size) {
-//								total += size;
-//								callback(err);
-//							});
-//						},
-//						function (err) {
-//							cb(err, total);
-//						}
-//					);
-//				});
-//			}
-//			else {
-//				cb(err, total);
-//			}
-//		});
-//	}
-
 	function getFileSizeInBytes(filepath) {
 		var stats = fs.lstatSync(filepath);
 		return stats.size;
@@ -119,8 +92,8 @@ module.exports = function (grunt) {
 		// If the extension is .jst, treat as preset template
 		if (path.extname(options.template) !== ".jst") {
 			grunt.log.debug("Trying to use preset template files.");
-			// TODO: read from package folder
-			var defaultTemplate = "./templates/" + options.template + '.jst';
+			var bundledTemplatesPath = path.join(path.dirname(fs.realpathSync(__filename)), '../templates/');
+			var defaultTemplate = bundledTemplatesPath + options.template + '.jst';
 			if (grunt.file.exists(defaultTemplate)) {
 				options.template = defaultTemplate;
 			}
