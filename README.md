@@ -30,11 +30,11 @@ Or just use:
 - Added JSON template, with key and array version
 - Added CSV support
 - Added totalBytes support
+- Replace lodash with grunt.util._
 
 ### Roadmap 0.1.2
 - Consider ignoreBasePath naming
 - Consider file templates vs. string templates, processId
-- Replace lodash with grunt.util._
 - Add image width and height support
 - Refactor functions
 

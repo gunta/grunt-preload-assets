@@ -14,12 +14,10 @@ module.exports = function (grunt) {
 	var path = require('path'),
 		fs = require('fs');
 
-	// External libs
-	var _ = require('lodash');
+	// Grunt utils
+	var _ = grunt.util._;
+	var async = grunt.util.async;
 
-	// Mixin Underscore.string methods
-	_.str = require('underscore.string');
-	_.mixin(_.str.exports());
 
 //	function readSizeRecursive(item, cb) {
 //		fs.lstat(item, function (err, stats) {
