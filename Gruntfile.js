@@ -44,6 +44,7 @@ module.exports = function (grunt) {
 				options: {
 //					basePath: 'test/',
 					template: 'custom-sample-var'
+
 				},
 				files: {
 					'tmp/custom_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
@@ -51,7 +52,15 @@ module.exports = function (grunt) {
 			},
 			fulljson_options: {
 				options: {
-					template: 'full-json'
+					template: 'full-json',
+					detect: {
+						id: true,
+						bytes: true,
+						totalBytes: true,
+						src: true,
+						lastModified: true,
+						md5: true
+					}
 				},
 				files: {
 					'tmp/fulljson_options.json': ['test/fixtures/*.*']

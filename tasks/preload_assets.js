@@ -12,16 +12,12 @@ module.exports = function (grunt) {
 
 	// NodeJS libs
 	var path = require('path'),
-		fs = require('fs');
+		fs = require('fs'),
+		crypto = require('crypto');
 
 	// Grunt utils
 	var _ = grunt.util._;
 	var async = grunt.util.async;
-
-	function getFileSizeInBytes(filepath) {
-		var stats = fs.lstatSync(filepath);
-		return stats.size;
-	}
 
 	function getPathWithoutBasePath(path, ignoreBasePath) {
 		if (ignoreBasePath) {
@@ -31,41 +27,78 @@ module.exports = function (grunt) {
 		}
 	}
 
-
-	// Filename conversion for templates
-	var defaultProcessName = function (name) {
-		return name;
-	};
-
 	// SAMPLE
 	// https://github.com/gruntjs/grunt-contrib-jst/blob/master/tasks/jst.js
 
-	var getTypeByExtension = function (extension) {
-		switch (extension) {
-			case "jpeg":
-			case "jpg":
-			case "gif":
-			case "png":
-			case "webp":
-			case "bmp":
-				return "IMAGE";
-			case "ogg":
-			case "mp3":
-			case "wav":
-				return "SOUND";
-			case "json":
-				return "JSON";
-			case "xml":
-				return "XML";
-			case "css":
-				return "CSS";
-			case "js":
-				return "JAVASCRIPT";
-			case 'svg':
-				return "SVG";
-			default:
-				return "TEXT";
+
+	var scan = {
+		idBasedOnFilenameCamelized: function (file) {
+			return _.camelize(_.strLeftBack(path.normalize(file.src), path.extname(file.src)).replace(/\//g, '_'));
+		},
+		typeByExtension: function (file) {
+			var extension = _.ltrim(path.extname(file.src), '.');
+			switch (extension) {
+				case "jpeg":
+				case "jpg":
+				case "gif":
+				case "png":
+				case "webp":
+				case "bmp":
+					return "IMAGE";
+				case "ogg":
+				case "mp3":
+				case "wav":
+					return "SOUND";
+				case "json":
+					return "JSON";
+				case "xml":
+					return "XML";
+				case "css":
+					return "CSS";
+				case "js":
+					return "JAVASCRIPT";
+				case 'svg':
+					return "SVG";
+				default:
+					return "TEXT";
+			}
+		},
+		fileSizeInBytes: function (filepath) {
+			var stats = fs.lstatSync(filepath);
+			return stats.size;
+		},
+		lastModifiedUnixTime: function (filepath) {
+			var stats = fs.lstatSync(filepath);
+			// TODO: to unix time
+//			console.log(stats.mtime);
+			return stats.mtime;
+		},
+		dimensionsInPixels: function (filepath) {
+			var dimensions = {
+				width: -1,
+				height: -1
+			};
+
+			if (scan.typeByExtension(filepath) === "IMAGE") {
+				// TODO: scan dimensions
+			}
+
+			return dimensions;
+		},
+		md5hash: function (filepath, digits) {
+			// TODO: scan md5
+			var hash = crypto.createHash('md5');
+			hash.update(grunt.file.read(filepath));
+			grunt.log.verbose.write('Hashing ' + filepath + '...');
+			var hashed = hash.digest('hex');
+			var sliced = hashed.slice(0, digits);
+			return sliced;
+		},
+		base64encode: function (filepath) {
+			// TODO: encode base64
+			return "";
 		}
+
 	};
 
 	grunt.registerMultiTask('preload_assets', 'A Grunt plugin for making preload assets manifest.', function () {
@@ -75,18 +108,48 @@ module.exports = function (grunt) {
 			template: 'custom-sample',
 			basePath: undefined,
 			ignoreBasePath: undefined,
-			processContent: function (src) {
-				return src;
+			detect: {
+				src: true,
+				id: true,
+				type: true,
+				bytes: true,
+				totalBytes: true,
+				dimensions: false,
+				md5: false,
+				lastModified: false,
+				base64: false
 			},
-			processId: function (file) {
-				return _.camelize(_.strLeftBack(path.normalize(file.src), path.extname(file.src)).replace(/\//g, '_'));
-			},
-			processType: function (file) {
-				return getTypeByExtension(_.ltrim(path.extname(file.src), '.'));
+			process: {
+				src: function (file) {
+					return file;
+				},
+				id: function (file) {
+					return scan.idBasedOnFilenameCamelized(file);
+				},
+				type: function (file) {
+					return scan.typeByExtension(file);
+				},
+				bytes: function (file) {
+					return scan.fileSizeInBytes(file);
+				},
+				totalBytes: function (bytes) {
+					return bytes;
+				},
+				dimensions: function (file) {
+					return scan.dimensionsInPixels(file);
+				},
+				md5: function (file) {
+					return scan.md5hash(file, 8);
+				},
+				lastModified: function (file) {
+					return scan.lastModifiedUnixTime(file);
+				},
+				base64: function (file) {
+					return scan.base64encode(file);
+				}
 			}
 		});
 
-//		var processName = options.processName || defaultProcessName;
 		grunt.verbose.writeflags(options, 'Options');
 
 		// If the extension is .jst, treat as preset template
@@ -100,7 +163,7 @@ module.exports = function (grunt) {
 		}
 
 		// TODO: USE GRUNT
-		var tpl = options.processContent(grunt.file.read(options.template));
+		var tpl = options.process.src(grunt.file.read(options.template));
 
 		var outputData = {};
 		outputData.key = options.key;
@@ -162,16 +225,37 @@ module.exports = function (grunt) {
 
 			// Generate ID for each file
 			_.each(outputData.files, function (f) {
-				// TODO: if enabled
-				f.id = options.processId(f);
-
-				f.type = options.processType(f);
-
-				f.bytes = getFileSizeInBytes(f.origSrc);
-				totalBytes += f.bytes;
+				if (options.detect.id) {
+					f.id = options.process.id(f);
+				}
+				if (options.detect.type) {
+					f.type = options.process.type(f);
+				}
+				if (options.detect.bytes) {
+					f.bytes = options.process.bytes(f.origSrc);
+				}
+				if (options.detect.totalBytes) {
+					totalBytes += f.bytes;
+				}
+				if (options.detect.dimensions) {
+					var dimensions = options.process.dimensions(f.origSrc);
+					f.width = dimensions.width;
+					f.height = dimensions.height;
+				}
+				if (options.detect.md5) {
+					f.md5 = options.process.md5(f.origSrc);
+				}
+				if (options.detect.lastModified) {
+					f.lastModified = options.process.lastModified(f.origSrc);
+				}
+				if (options.detect.base64) {
+					f.base64 = options.process.base64(f.origSrc);
+				}
 			});
 
-			outputData.totalBytes = totalBytes;
+			if (options.detect.totalBytes) {
+				outputData.totalBytes = options.process.totalBytes(totalBytes);
+			}
 
 			var compiled;
 			// Compile

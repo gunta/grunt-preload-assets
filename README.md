@@ -2,9 +2,8 @@ grunt-preload-assets
 ====================
 
 A Grunt plugin for generating preload assets manifest files.
-Work In Progress (!)
 
-##Way to install (WIP!):
+##Way to install (WIP):
 
 Add to your `package.json` entry:
 	
@@ -22,11 +21,11 @@ Or just use:
 
 
 ### Roadmap 0.1.1
-- Add md5 support
-- Add flag for optional switching of options
 - Add timestamp support
 
 	DONE:
+- Add md5 support
+- Add flag for optional switching of options
 - Added JSON template, with key and array version
 - Added CSV support
 - Added totalBytes support
