@@ -17,25 +17,25 @@ Or just use:
 
 ## Changes
 
-### Current 0.1.0
+### Current 0.1.1
 
-
-### Roadmap 0.1.1
-- Add timestamp support
-
-	DONE:
-- Add md5 support
-- Add flag for optional switching of options
+- Added timestamp support
+- Added base64 support
+- Added md5 support
+- Added flag for optional switching of options
 - Added JSON template, with key and array version
 - Added CSV support
 - Added totalBytes support
-- Replace lodash with grunt.util._
+- Replaced lodash with grunt.util._
 
 ### Roadmap 0.1.2
+
 - Consider ignoreBasePath naming
 - Consider file templates vs. string templates, processId
-- Add image width and height support
 - Refactor functions
+
+DONE:
+- Add image width and height support
 
 ### Roadmap 0.1.3
 - Add image sprites support
@@ -55,6 +55,9 @@ Or just use:
 - Add test suite
 - Publish npm
 - Add async support where possible
+- Add support for imagemagick
+- Add support for Windows
+- Remove dependency for execSync
 
 ### Roadmap 0.1.5
 - Create graphics

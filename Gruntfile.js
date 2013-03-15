@@ -44,7 +44,6 @@ module.exports = function (grunt) {
 				options: {
 //					basePath: 'test/',
 					template: 'custom-sample-var'
-
 				},
 				files: {
 					'tmp/custom_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
@@ -59,7 +58,9 @@ module.exports = function (grunt) {
 						totalBytes: true,
 						src: true,
 						lastModified: true,
-						md5: true
+						md5: true,
+						base64: true,
+						dimensions: true
 					}
 				},
 				files: {

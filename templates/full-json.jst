@@ -3,7 +3,7 @@
 		"files": [<%_.each(obj.files, function(file,i) {%>
 			{
 				<%
-				var props = _.pick(file, 'id', 'src', 'type', 'bytes', 'md5', 'lastModified'),
+				var props = _.pick(file, 'id', 'src', 'type', 'bytes', 'width', 'height', 'md5', 'base64', 'lastModified'),
 					pl = _.size(props),
 					p=1;
 
@@ -16,9 +16,15 @@
 			    <%}}
 			        if(prop=='bytes'){%>"bytes": <%=value%><%if(pl!==p++){%>,
 			    <%}}
+			        if(prop=='width'){%>"width": <%=value%><%if(pl!==p++){%>,
+                <%}}
+                	if(prop=='height'){%>"height": <%=value%><%if(pl!==p++){%>,
+                <%}}
 			        if(prop=='md5'){%>"md5": "<%=value%>"<%if(pl!==p++){%>,
                 <%}}
-                    if(prop=='lastModified'){%>"lastModified": "<%=value%>"<%if(pl!==p++){%>,
+                    if(prop=='base64'){%>"base64": "<%=value%>"<%if(pl!==p++){%>,
+                <%}}
+                    if(prop=='lastModified'){%>"lastModified": <%=value%><%if(pl!==p++){%>,
                 <%}}
 			    });
 

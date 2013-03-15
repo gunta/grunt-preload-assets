@@ -15,6 +15,15 @@ module.exports = function (grunt) {
 		fs = require('fs'),
 		crypto = require('crypto');
 
+	// Image libs
+	var imagesEngine = 'sips';
+	var execSync;
+
+	if (imagesEngine === 'sips') {
+		execSync = require('execSync');
+	}
+
+
 	// Grunt utils
 	var _ = grunt.util._;
 	var async = grunt.util.async;
@@ -30,48 +39,47 @@ module.exports = function (grunt) {
 	// SAMPLE
 	// https://github.com/gruntjs/grunt-contrib-jst/blob/master/tasks/jst.js
 
+	var typeByExtension = function (file) {
+		var extension = _.ltrim(path.extname(file.src), '.');
+		switch (extension) {
+			case "jpeg":
+			case "jpg":
+			case "gif":
+			case "png":
+			case "webp":
+			case "bmp":
+				return "IMAGE";
+			case "ogg":
+			case "mp3":
+			case "wav":
+				return "SOUND";
+			case "json":
+				return "JSON";
+			case "xml":
+				return "XML";
+			case "css":
+				return "CSS";
+			case "js":
+				return "JAVASCRIPT";
+			case 'svg':
+				return "SVG";
+			default:
+				return "TEXT";
+		}
+	};
 
 	var scan = {
 		idBasedOnFilenameCamelized: function (file) {
 			return _.camelize(_.strLeftBack(path.normalize(file.src), path.extname(file.src)).replace(/\//g, '_'));
 		},
-		typeByExtension: function (file) {
-			var extension = _.ltrim(path.extname(file.src), '.');
-			switch (extension) {
-				case "jpeg":
-				case "jpg":
-				case "gif":
-				case "png":
-				case "webp":
-				case "bmp":
-					return "IMAGE";
-				case "ogg":
-				case "mp3":
-				case "wav":
-					return "SOUND";
-				case "json":
-					return "JSON";
-				case "xml":
-					return "XML";
-				case "css":
-					return "CSS";
-				case "js":
-					return "JAVASCRIPT";
-				case 'svg':
-					return "SVG";
-				default:
-					return "TEXT";
-			}
-		},
+		typeByExtension: typeByExtension,
 		fileSizeInBytes: function (filepath) {
 			var stats = fs.lstatSync(filepath);
 			return stats.size;
 		},
 		lastModifiedUnixTime: function (filepath) {
 			var stats = fs.lstatSync(filepath);
-			// TODO: to unix time
-//			console.log(stats.mtime);
-			return stats.mtime;
+			return stats.mtime.getTime();
 		},
 		dimensionsInPixels: function (filepath) {
 			var dimensions = {
@@ -79,9 +87,33 @@ module.exports = function (grunt) {
 				height: -1
 			};
 
-			if (scan.typeByExtension(filepath) === "IMAGE") {
-				// TODO: scan dimensions
+			if (imagesEngine === 'sips') {
+				var commandToExecute = 'sips "' + filepath + '" -g pixelHeight -g pixelWidth';
+				var sipsOutput = execSync.stdout(commandToExecute).split('\n');
+
+				grunt.log.write(".");
+
+				// 4 lines: good signal that we have good output
+				if (sipsOutput.length === 4) {
+					var heightFound = sipsOutput[1].match(/pixelHeight: (\d+)/);
+					if (heightFound.length > 1) {
+						// Height found
+						dimensions.height = parseInt(heightFound[1], 10);
+					}
+					var widthFound = sipsOutput[2].match(/pixelWidth: (\d+)/);
+					if (widthFound.length > 1) {
+						// Width found
+						dimensions.width = parseInt(widthFound[1], 10);
+					}
+				} else {
+					// No image
+				}
 			}
+
+			// TODO: scan dimensions
+//			if (typeByExtension(filepath) === "IMAGE") {
+//				console.log(filepath)
+//			}
 
 			return dimensions;
 		},
@@ -95,8 +127,9 @@ module.exports = function (grunt) {
 			return sliced;
 		},
 		base64encode: function (filepath) {
-			// TODO: encode base64
-			return "";
+			var data = fs.readFileSync(filepath);
+			var base64data = new Buffer(data || '').toString('base64');
+			return base64data;
 		}
 
 	};
@@ -112,8 +145,8 @@ module.exports = function (grunt) {
 				src: true,
 				id: true,
 				type: true,
-				bytes: true,
-				totalBytes: true,
+				bytes: false,
+				totalBytes: false,
 				dimensions: false,
 				md5: false,
 				lastModified: false,
@@ -239,8 +272,12 @@ module.exports = function (grunt) {
 				}
 				if (options.detect.dimensions) {
 					var dimensions = options.process.dimensions(f.origSrc);
-					f.width = dimensions.width;
-					f.height = dimensions.height;
+					if (dimensions.width !== -1) {
+						f.width = dimensions.width;
+					}
+					if (dimensions.height !== -1) {
+						f.height = dimensions.height;
+					}
 				}
 				if (options.detect.md5) {
 					f.md5 = options.process.md5(f.origSrc);
@@ -252,6 +289,9 @@ module.exports = function (grunt) {
 					f.base64 = options.process.base64(f.origSrc);
 				}
 			});
+
+			// After all files scanned
+			grunt.log.writeln();
 
 			if (options.detect.totalBytes) {
 				outputData.totalBytes = options.process.totalBytes(totalBytes);
