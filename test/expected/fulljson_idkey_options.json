@@ -3,65 +3,52 @@
 		"files": {
 			"fixturesCabinBoy": {
 			    "src": "fixtures/CabinBoy.mp3",
-			    "type": "SOUND",
-			    "bytes": 9529
+			    "type": "SOUND"
 	        },
 			"fixturesThunder": {
 			    "src": "fixtures/Thunder.ogg",
-			    "type": "SOUND",
-			    "bytes": 71083
+			    "type": "SOUND"
 	        },
 			"fixturesFont": {
 			    "src": "fixtures/font.css",
-			    "type": "CSS",
-			    "bytes": 37
+			    "type": "CSS"
 	        },
 			"fixturesGbot": {
 			    "src": "fixtures/gbot.svg",
-			    "type": "SVG",
-			    "bytes": 74129
+			    "type": "SVG"
 	        },
 			"fixturesGenericButton": {
 			    "src": "fixtures/genericButton.png",
-			    "type": "IMAGE",
-			    "bytes": 2832
+			    "type": "IMAGE"
 	        },
 			"fixturesGenericButtonOver": {
 			    "src": "fixtures/genericButtonOver.png",
-			    "type": "IMAGE",
-			    "bytes": 3039
+			    "type": "IMAGE"
 	        },
 			"fixturesGrant": {
 			    "src": "fixtures/grant.json",
-			    "type": "JSON",
-			    "bytes": 229
+			    "type": "JSON"
 	        },
 			"fixturesGrant": {
 			    "src": "fixtures/grant.xml",
-			    "type": "XML",
-			    "bytes": 254
+			    "type": "XML"
 	        },
 			"fixturesImage2": {
 			    "src": "fixtures/image2.jpg",
-			    "type": "IMAGE",
-			    "bytes": 39141
+			    "type": "IMAGE"
 	        },
 			"fixturesLoader": {
 			    "src": "fixtures/loader.gif",
-			    "type": "IMAGE",
-			    "bytes": 5108
+			    "type": "IMAGE"
 	        },
 			"fixturesParallaxHill1": {
 			    "src": "fixtures/parallaxHill1.png",
-			    "type": "IMAGE",
-			    "bytes": 1665
+			    "type": "IMAGE"
 	        },
 			"fixturesSky": {
 			    "src": "fixtures/sky.png",
-			    "type": "IMAGE",
-			    "bytes": 1032
+			    "type": "IMAGE"
 	        }
-        },
-        "totalBytes": 208078
+        }
     }
 }
