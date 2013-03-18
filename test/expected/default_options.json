@@ -1,0 +1,31 @@
+{
+	"filesManifest": {
+		"files": [
+			{
+				"id": "testFixturesGenericButton",
+			    "src": "test/fixtures/genericButton.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesGenericButtonOver",
+			    "src": "test/fixtures/genericButtonOver.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesParallaxHill1",
+			    "src": "test/fixtures/parallaxHill1.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesSky",
+			    "src": "test/fixtures/sky.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesImage2",
+			    "src": "test/fixtures/image2.jpg",
+			    "type": "IMAGE"
+	        }
+        ]
+    }
+}

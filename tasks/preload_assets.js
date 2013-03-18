@@ -138,7 +138,7 @@ module.exports = function (grunt) {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
 			key: 'filesManifest',
-			template: 'custom-sample',
+			template: 'json',
 			basePath: undefined,
 			ignoreBasePath: undefined,
 			detect: {

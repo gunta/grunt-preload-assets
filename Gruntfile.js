@@ -31,12 +31,17 @@ module.exports = function (grunt) {
 		// Configuration to be run (and then tested).
 		preload_assets: {
 			default_options: {
+				files: {
+					'tmp/default_options.json': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
+				}
+			},
+			preloadjs_options: {
 				options: {
 					ignoreBasePath: 'test/fixtures/',
 					template: 'preloadjs'
 				},
 				files: {
-					'tmp/default_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
+					'tmp/preloadjs_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
 				}
 			},
 			custom_options: {
@@ -47,7 +52,7 @@ module.exports = function (grunt) {
 					'tmp/custom_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
 				}
 			},
-			json_options: {
+			json_full_options: {
 				options: {
 					template: 'json',
 					detect: {
@@ -62,7 +67,7 @@ module.exports = function (grunt) {
 					}
 				},
 				files: {
-					'tmp/fulljson_options.json': ['test/fixtures/*.*']
+					'tmp/json_full_options.json': ['test/fixtures/*.*']
 				}
 			},
 			json_idaskey_options: {
@@ -71,7 +76,7 @@ module.exports = function (grunt) {
 					ignoreBasePath: 'test/'
 				},
 				files: {
-					'tmp/fulljson_idkey_options.json': ['test/fixtures/*.*']
+					'tmp/json_idaskey_options.json': ['test/fixtures/*.*']
 				}
 			},
 			csv_options: {
