@@ -32,9 +32,8 @@ module.exports = function (grunt) {
 		preload_assets: {
 			default_options: {
 				options: {
-//					basePath: 'test/',
 					ignoreBasePath: 'test/fixtures/',
-					template: 'preloadjs-var'
+					template: 'preloadjs'
 				},
 				files: {
 					'tmp/default_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
@@ -42,16 +41,15 @@ module.exports = function (grunt) {
 			},
 			custom_options: {
 				options: {
-//					basePath: 'test/',
-					template: 'custom-sample-var'
+					template: 'custom-sample'
 				},
 				files: {
 					'tmp/custom_options.js': ['test/fixtures/*.png', 'test/fixtures/*.jpg']
 				}
 			},
-			fulljson_options: {
+			json_options: {
 				options: {
-					template: 'full-json',
+					template: 'json',
 					detect: {
 						id: true,
 						bytes: true,
@@ -67,9 +65,9 @@ module.exports = function (grunt) {
 					'tmp/fulljson_options.json': ['test/fixtures/*.*']
 				}
 			},
-			fulljson_idkey_options: {
+			json_idaskey_options: {
 				options: {
-					template: 'full-json-idkey',
+					template: 'json-idaskey',
 					ignoreBasePath: 'test/'
 				},
 				files: {
@@ -78,7 +76,7 @@ module.exports = function (grunt) {
 			},
 			csv_options: {
 				options: {
-					template: 'filelist-csv'
+					template: 'csv'
 				},
 				files: {
 					'tmp/csv_options.csv': ['test/fixtures/*.*']
@@ -106,7 +104,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('test', ['clean', 'preload_assets', 'nodeunit']);
 
 	// By default, lint and run all tests.
-	grunt.registerTask('default', ['jshint', 'preload_assets']);
-//	grunt.registerTask('default', ['jshint', 'test']);
+	grunt.registerTask('default', ['jshint', 'test']);
 
 };
