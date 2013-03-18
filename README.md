@@ -5,6 +5,11 @@
 > By [@gunta](https://github.com/gunta/).
 
 
+
+![image](http://gunta.github.com/grunt-preload-assets/images/grunt-preload-assets-logo.jpg)
+
+
+
 ## Getting Started
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
@@ -178,17 +183,72 @@ process: {
 ```js
 // Project configuration.
 grunt.initConfig({
-  preload_assets: {
-    my_target: {
-      files: {
-        'dest/filesmanifest.js': ['src/*.png', 'src/*.jpg']
-      }
-    }
-  }
+	preload_assets: {
+		my_target: {
+			files: {
+				'dest/filesmanifest.js': ['src/*.png', 'src/*.jpg']
+			}
+		}
+	}
 });
 ```
 
 Will produce something like this:
+
+```json
+{
+	"filesManifest": {
+		"files": [
+			{
+				"id": "testFixturesGenericButton",
+			    "src": "test/fixtures/genericButton.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesGenericButtonOver",
+			    "src": "test/fixtures/genericButtonOver.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesParallaxHill1",
+			    "src": "test/fixtures/parallaxHill1.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesSky",
+			    "src": "test/fixtures/sky.png",
+			    "type": "IMAGE"
+	        },
+			{
+				"id": "testFixturesImage2",
+			    "src": "test/fixtures/image2.jpg",
+			    "type": "IMAGE"
+	        }
+        ]
+    }
+}
+```
+
+### PreloadJS sample
+
+```js
+// Project configuration.
+grunt.initConfig({
+	preload_assets: {
+		my_target: {
+			options: {
+				ignoreBasePath: 'somebasepath/path/',
+				template: 'preloadjs'
+			},
+			files: {
+				'dest/filesmanifest.js': ['somebasepath/path/*.png', 'somebasepath/path/*.jpg']
+			}
+		}
+	}
+});
+```
+
+Will produce this:
 
 ```js
 var filesManifest = [
@@ -198,6 +258,105 @@ var filesManifest = [
 	{id: 'sky', src: 'sky.png', type: createjs.LoadQueue.IMAGE},
 	{id: 'image2', src: 'image2.jpg', type: createjs.LoadQueue.IMAGE}
 ];
+```
+
+### JSON full options sample
+
+```js
+// Project configuration.
+grunt.initConfig({
+	preload_assets: {
+		my_target: {
+			options: {
+				template: 'json',
+				detect: {
+					id: true,
+					bytes: true,
+					totalBytes: true,
+					src: true,
+					lastModified: true,
+					md5: true,
+					base64: true,
+					dimensions: true
+				}
+			},
+			files: {
+				'dest/filesmanifest.js': ['test/fixtures/*.*']
+			}
+		}
+	}
+});
+```
+
+Will produce this:
+
+```json
+{
+	"filesManifest": {
+		"files": [
+			{
+				"id": "testFixturesCabinBoy",
+			    "src": "test/fixtures/CabinBoy.mp3",
+			    "bytes": 9529,
+			    "md5": "bc1d817c",
+                "base64": "SUQzAwAAAAAlH1RSUQzAwAAAAAlH1RZRVIMjAxMC0xMC0yMlQxwNjowM...",
+                "lastModified": 1363601857000
+	        },
+			{
+				"id": "testFixturesThunder",
+			    "src": "test/fixtures/Thunder.ogg",
+			    "bytes": 71083,
+			    "md5": "076b3c87",
+			    "base64": "1RZRVIAAAAaAASUQzAwAAAAAlH1RZRVIAAAAaAAAAMjAxMC0xMC0ywNjowM..."
+                "lastModified": 1363601857000
+	        },
+			{
+				"id": "testFixturesFont",
+			    "src": "test/fixtures/font.css",
+			    "bytes": 37,
+			    "md5": "34b228cf",
+                "base64": "ZGl2IHsKICAgY29sb3I6ICMyNMC0xmIzZjggIWltcG9ydGFudDsKfQ...",
+                "lastModified": 1363601857000
+	        },
+			{
+				"id": "testFixturesGbot",
+			    "src": "test/fixtures/gbot.svg",
+			    "bytes": 72995,
+			    "md5": "ff590f46",
+			    "base64": "wAAAAAlH1RZRVIAAAAaA9sbNMC0xmIzZ3I6IC0xMCMyNMC0xCMyNMC0xmIz...",
+                "lastModified": 1363601858000
+	        },
+			{
+				"...": "............"
+			}
+        ],
+        "totalBytes": 206944
+    }
+}
+```
+
+### CSV options sample
+
+```js
+// Project configuration.
+grunt.initConfig({
+	preload_assets: {
+		my_target: {
+			options: {
+					template: 'csv'
+			},
+			files: {
+				'dest/filesmanifest.csv': ['test/fixtures/*.*']
+			}
+		}
+	}
+});
+```
+
+Will produce this:
+
+```csv
+test/fixtures/CabinBoy.mp3,test/fixtures/Thunder.ogg,test/fixtures/font.css,test/fixtures/gbot.svg,test/fixtures/genericButton.png,test/fixtures/genericButtonOver.png,test/fixtures/grant.json,test/fixtures/grant.xml,test/fixtures/image2.jpg,test/fixtures/loader.gif,test/fixtures/parallaxHill1.png,test/fixtures/sky.png
 ```
 
 
