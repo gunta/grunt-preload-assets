@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Grunt-preload-assets : A Grunt plugin for generating preload assets manifest files" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Grunt-preload-assets</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/gunta/grunt-preload-assets">View on GitHub</a>
+
+          <h1 id="project_title">Grunt-preload-assets</h1>
+          <h2 id="project_tagline">A Grunt plugin for generating preload assets manifest files</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/gunta/grunt-preload-assets/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/gunta/grunt-preload-assets/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>grunt-preload-assets</h1>
+
+<blockquote>
+<p>A Grunt plugin for generating preload assets manifest files.<br>
+Supports <a href="http://www.createjs.com/#!/PreloadJS">PreloadJS</a>, <a href="http://thinkpixellab.com/pxloader/">PxLoader</a>, JSON, JS, CSV, and unlimited support for multiple formats by using <a href="http://www.2ality.com/2012/06/underscore-templates.html">underscore templates</a>.
+By <a href="https://github.com/gunta/">@gunta</a>.</p>
+</blockquote>
+
+<h2>Getting Started</h2>
+
+<p>If you haven't used <a href="http://gruntjs.com/">Grunt</a> before, be sure to check out the <a href="http://gruntjs.com/getting-started">Getting Started</a> guide, as it explains how to create a <a href="http://gruntjs.com/sample-gruntfile">Gruntfile</a> as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:</p>
+
+<p>Add to your <code>package.json</code> entry:</p>
+
+<pre><code>"grunt-preload-assets": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
+</code></pre>
+
+<p>Or just use:</p>
+
+<pre lang="shell"><code>npm install git+ssh://git@github.com:gunta/grunt-preload-assets.git --save-dev
+</code></pre>
+
+<h2>Preload Assets task</h2>
+
+<p><em>Run this task with the <code>grunt preload_assets</code> command.</em></p>
+
+<p>Task targets, files and options may be specified according to the grunt <a href="http://gruntjs.com/configuring-tasks">Configuring tasks</a> guide.</p>
+
+<h3>Options</h3>
+
+<h4>template</h4>
+
+<p>Type: <code>String</code><br>
+Choices:    </p>
+
+<ul>
+<li><code>preloadjs</code></li>
+<li><code>pxloader</code></li>
+<li><code>json</code></li>
+<li><code>json-idaskey</code></li>
+<li><code>csv</code></li>
+<li><code>custom-sample</code></li>
+<li>Or a path to a template file.<br>
+</li>
+</ul><p>Default: <code>json</code></p>
+
+<p>Selects a template for generating the assets list.
+The output can be customized by creating your own <a href="http://www.2ality.com/2012/06/underscore-templates.html">underscore template</a>. </p>
+
+<h4>detect</h4>
+
+<p>Type: <code>Object</code></p>
+
+<p>An object containing properties to analyze and include from the assets. </p>
+
+<ul>
+<li>
+<h5>id</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>true</code></p>
+
+<p>Includes an <strong>identifier</strong> in the output.<br>
+By default, it <strong>camelizes the filename and removes the extension</strong>.</p>
+</li>
+<li>
+<h5>src</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>true</code></p>
+
+<p>Includes the file path.</p>
+</li>
+<li>
+<h5>type</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>true</code></p>
+
+<p>Analyzes each asset file type and includes it.<br>
+By default, the supported file types are <code>IMAGE</code> <code>SOUND</code> <code>JSON</code> <code>XML</code> <code>CSS</code> <code>JAVASCRIPT</code> <code>SVG</code> and <code>TEXT</code>.</p>
+</li>
+<li>
+<h5>bytes</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>false</code>    </p>
+
+<p>Includes each asset file size <strong>in bytes</strong>.<br>
+Useful when creating realistic progress bars.</p>
+</li>
+<li>
+<h5>totalBytes</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>false</code>    </p>
+
+<p>Includes the sum of all assets file sizes <strong>in bytes</strong>.<br>
+Useful when creating realistic progress bars.</p>
+</li>
+<li>
+<h5>lastModified</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>false</code>    </p>
+
+<p>Includes each asset file last modified timestamp <strong>in unixtime</strong>.<br>
+Useful when comparing file changes or implementing a cache system.</p>
+</li>
+<li>
+<h5>md5</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>false</code>    </p>
+
+<p>Includes each asset file <strong>md5 hash</strong> trimmed to the first <strong>8 chars</strong>.<br>
+Useful when creating a cache system more reliable than one based on timestamps or checking integrity. </p>
+</li>
+<li>
+<h5>base64</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>false</code>    </p>
+
+<p>Includes each entire asset file encoded in a <strong>base64 string</strong>.<br>
+Useful when the asset file sizes are small, to reduce http requests.</p>
+</li>
+<li>
+<h5>dimensions</h5>
+
+<p>Type: <code>Boolean</code><br>
+Default: <code>false</code>    </p>
+
+<p>For <code>IMAGE</code> files: Includes each asset file <code>width</code> and <code>height</code> <strong>in pixels</strong>.<br>
+Useful so one doesn't need to manually write the width/height everytime for each file.</p>
+
+<p><em>Currently this only works on OS X.</em></p>
+</li>
+</ul><p><em>Note that not every template needs to add support to all these properties.</em></p>
+
+<h3>Advanced Options</h3>
+
+<h4>key</h4>
+
+<p>Type: <code>String</code><br>
+Default: <code>filesManifest</code></p>
+
+<p>Specifies a key name for the root container.</p>
+
+<h4>ignoreBasePath</h4>
+
+<p>Type: <code>String</code><br>
+Default: <code>undefined</code></p>
+
+<p>Ignores a specific base path from the specified <code>src</code>.</p>
+
+<h4>process</h4>
+
+<p>Type: <code>Object</code></p>
+
+<p>An object containing functions to override the default behaviour of <strong>detect</strong>. </p>
+
+<p>By default it includes the following object.</p>
+
+<div class="highlight"><pre><span class="nx">process</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">src</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">file</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">idBasedOnFilenameCamelized</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">typeByExtension</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">bytes</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">fileSizeInBytes</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">totalBytes</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">bytes</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">bytes</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">dimensions</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">dimensionsInPixels</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">md5</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">md5hash</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">lastModified</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">lastModifiedUnixTime</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">base64</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">base64encode</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>Usage examples</h2>
+
+<h3>Basic usage</h3>
+
+<div class="highlight"><pre><span class="c1">// Project configuration.</span>
+<span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+  <span class="nx">preload_assets</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'dest/filesmanifest.js'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'src/*.png'</span><span class="p">,</span> <span class="s1">'src/*.jpg'</span><span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Will produce something like this:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">filesManifest</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'genericButton'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'genericButton.png'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'genericButtonOver'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'genericButtonOver.png'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'parallaxHill1'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'parallaxHill1.png'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'sky'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'sky.png'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">},</span>
+    <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'image2'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'image2.jpg'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+
+<h2>Release History</h2>
+
+<h3>0.1.1</h3>
+
+<ul>
+<li>Added timestamp support</li>
+<li>Added base64 support</li>
+<li>Added md5 support</li>
+<li>Added flag for optional switching of options</li>
+<li>Added JSON template, with key and array version</li>
+<li>Added CSV support</li>
+<li>Added totalBytes support</li>
+<li>Replaced lodash with grunt.util._</li>
+</ul><h2>Roadmap</h2>
+
+<h3>0.1.2</h3>
+
+<ul>
+<li>Consider ignoreBasePath naming -&gt; CONSIDER USING ~ new syntax</li>
+<li>Consider file templates vs. string templates, processId</li>
+<li>Refactor functions</li>
+<li>Add PxLoader template</li>
+<li>Write docs</li>
+</ul><p>DONE:</p>
+
+<ul>
+<li>Add image width and height support</li>
+</ul><h3>0.1.3</h3>
+
+<ul>
+<li>Add image sprites support</li>
+<li>Add TexturePacker JSON and sprites support</li>
+<li>Add image jpeg+alpha support</li>
+<li>Add jpeg+alpha sprites support</li>
+<li>Consider id generation by groups</li>
+<li>Look for other IDs, id duplication</li>
+<li>Add video specs support</li>
+<li>Add audio template support (zynga audio library)</li>
+</ul><h3>0.1.4</h3>
+
+<ul>
+<li>Test with PreloadJS</li>
+<li>Write template for other preloaders</li>
+<li>Add check for not scanning heavy properties if lastModified is present</li>
+<li>Add test suite</li>
+<li>Publish npm</li>
+<li>Add async support where possible</li>
+<li>Add support for imagemagick</li>
+<li>Add support for Windows</li>
+<li>Remove dependency for execSync</li>
+<li>Add template for grouping by filetype</li>
+<li>Add support for remote file path (absolute)</li>
+</ul><h3>0.1.5</h3>
+
+<ul>
+<li>Create graphics</li>
+<li>Contact Adobe for PreloadJS official endorsement and support</li>
+<li>Contact grunt-preloader-manifest-generator author about duplicated work</li>
+</ul><h3>0.1.6</h3>
+
+<ul>
+<li>Add Grunt 0.5 support</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Grunt-preload-assets maintained by <a href="https://github.com/gunta">gunta</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
