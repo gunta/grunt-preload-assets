@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Grunt-preload-assets : A Grunt plugin for generating preload assets manifest files" />
+    <meta name="description" content="grunt-preload-assets : A Grunt plugin for generating preload assets manifest files" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Grunt-preload-assets</title>
+    <title>grunt-preload-assets</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/gunta/grunt-preload-assets">View on GitHub</a>
 
-          <h1 id="project_title">Grunt-preload-assets</h1>
+          <h1 id="project_title">grunt-preload-assets</h1>
           <h2 id="project_tagline">A Grunt plugin for generating preload assets manifest files</h2>
 
             <section id="downloads">
@@ -38,6 +38,8 @@
 Supports <a href="http://www.createjs.com/#!/PreloadJS">PreloadJS</a>, <a href="http://thinkpixellab.com/pxloader/">PxLoader</a>, JSON, JS, CSV, and unlimited support for multiple formats by using <a href="http://www.2ality.com/2012/06/underscore-templates.html">underscore templates</a>.
 By <a href="https://github.com/gunta/">@gunta</a>.</p>
 </blockquote>
+
+<p><img src="http://gunta.github.com/grunt-preload-assets/images/grunt-preload-assets-logo.jpg" alt="image"></p>
 
 <h2>Getting Started</h2>
 
@@ -232,17 +234,70 @@ Default: <code>undefined</code></p>
 
 <div class="highlight"><pre><span class="c1">// Project configuration.</span>
 <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
-  <span class="nx">preload_assets</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s1">'dest/filesmanifest.js'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'src/*.png'</span><span class="p">,</span> <span class="s1">'src/*.jpg'</span><span class="p">]</span>
-      <span class="p">}</span>
+    <span class="nx">preload_assets</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s1">'dest/filesmanifest.js'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'src/*.png'</span><span class="p">,</span> <span class="s1">'src/*.jpg'</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 
 <p>Will produce something like this:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">"filesManifest"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"files"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesGenericButton"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/genericButton.png"</span><span class="p">,</span>
+                <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesGenericButtonOver"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/genericButtonOver.png"</span><span class="p">,</span>
+                <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesParallaxHill1"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/parallaxHill1.png"</span><span class="p">,</span>
+                <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesSky"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/sky.png"</span><span class="p">,</span>
+                <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesImage2"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/image2.jpg"</span><span class="p">,</span>
+                <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"IMAGE"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>PreloadJS sample</h3>
+
+<div class="highlight"><pre><span class="c1">// Project configuration.</span>
+<span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="nx">preload_assets</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">ignoreBasePath</span><span class="o">:</span> <span class="s1">'somebasepath/path/'</span><span class="p">,</span>
+                <span class="nx">template</span><span class="o">:</span> <span class="s1">'preloadjs'</span>
+            <span class="p">},</span>
+            <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s1">'dest/filesmanifest.js'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'somebasepath/path/*.png'</span><span class="p">,</span> <span class="s1">'somebasepath/path/*.jpg'</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Will produce this:</p>
 
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">filesManifest</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'genericButton'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'genericButton.png'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">},</span>
@@ -252,6 +307,102 @@ Default: <code>undefined</code></p>
     <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">'image2'</span><span class="p">,</span> <span class="nx">src</span><span class="o">:</span> <span class="s1">'image2.jpg'</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="nx">createjs</span><span class="p">.</span><span class="nx">LoadQueue</span><span class="p">.</span><span class="nx">IMAGE</span><span class="p">}</span>
 <span class="p">];</span>
 </pre></div>
+
+<h3>JSON full options sample</h3>
+
+<div class="highlight"><pre><span class="c1">// Project configuration.</span>
+<span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="nx">preload_assets</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">template</span><span class="o">:</span> <span class="s1">'json'</span><span class="p">,</span>
+                <span class="nx">detect</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">id</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">bytes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">totalBytes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">src</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">lastModified</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">md5</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">base64</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                    <span class="nx">dimensions</span><span class="o">:</span> <span class="kc">true</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s1">'dest/filesmanifest.js'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'test/fixtures/*.*'</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Will produce this:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">"filesManifest"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"files"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesCabinBoy"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/CabinBoy.mp3"</span><span class="p">,</span>
+                <span class="nt">"bytes"</span><span class="p">:</span> <span class="mi">9529</span><span class="p">,</span>
+                <span class="nt">"md5"</span><span class="p">:</span> <span class="s2">"bc1d817c"</span><span class="p">,</span>
+                <span class="nt">"base64"</span><span class="p">:</span> <span class="s2">"SUQzAwAAAAAlH1RSUQzAwAAAAAlH1RZRVIMjAxMC0xMC0yMlQxwNjowM..."</span><span class="p">,</span>
+                <span class="nt">"lastModified"</span><span class="p">:</span> <span class="mi">1363601857000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesThunder"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/Thunder.ogg"</span><span class="p">,</span>
+                <span class="nt">"bytes"</span><span class="p">:</span> <span class="mi">71083</span><span class="p">,</span>
+                <span class="nt">"md5"</span><span class="p">:</span> <span class="s2">"076b3c87"</span><span class="p">,</span>
+                <span class="nt">"base64"</span><span class="p">:</span> <span class="s2">"1RZRVIAAAAaAASUQzAwAAAAAlH1RZRVIAAAAaAAAAMjAxMC0xMC0ywNjowM..."</span><span class="p">,</span>
+                <span class="nt">"lastModified"</span><span class="p">:</span> <span class="mi">1363601857000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesFont"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/font.css"</span><span class="p">,</span>
+                <span class="nt">"bytes"</span><span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+                <span class="nt">"md5"</span><span class="p">:</span> <span class="s2">"34b228cf"</span><span class="p">,</span>
+                <span class="nt">"base64"</span><span class="p">:</span> <span class="s2">"ZGl2IHsKICAgY29sb3I6ICMyNMC0xmIzZjggIWltcG9ydGFudDsKfQ..."</span><span class="p">,</span>
+                <span class="nt">"lastModified"</span><span class="p">:</span> <span class="mi">1363601857000</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"testFixturesGenericButton"</span><span class="p">,</span>
+                <span class="nt">"src"</span><span class="p">:</span> <span class="s2">"test/fixtures/genericButton.png"</span><span class="p">,</span>
+                <span class="nt">"bytes"</span><span class="p">:</span> <span class="mi">2832</span><span class="p">,</span>
+                <span class="nt">"width"</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span>
+                <span class="nt">"height"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                <span class="nt">"md5"</span><span class="p">:</span> <span class="s2">"7a36698a"</span><span class="p">,</span>
+                <span class="nt">"base64"</span><span class="p">:</span> <span class="s2">"iVBONvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2FTkSuQmCC..."</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">"..."</span><span class="p">:</span> <span class="s2">"............"</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="nt">"totalBytes"</span><span class="p">:</span> <span class="mi">206944</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>CSV options sample</h3>
+
+<div class="highlight"><pre><span class="c1">// Project configuration.</span>
+<span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="nx">preload_assets</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">template</span><span class="o">:</span> <span class="s1">'csv'</span>
+            <span class="p">},</span>
+            <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s1">'dest/filesmanifest.csv'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'test/fixtures/*.*'</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Will produce this:</p>
+
+<pre lang="csv"><code>test/fixtures/CabinBoy.mp3,test/fixtures/Thunder.ogg,test/fixtures/font.css,test/fixtures/gbot.svg,test/fixtures/genericButton.png,test/fixtures/genericButtonOver.png,test/fixtures/grant.json,test/fixtures/grant.xml,test/fixtures/image2.jpg,test/fixtures/loader.gif,test/fixtures/parallaxHill1.png,test/fixtures/sky.png
+</code></pre>
 
 <h2>Release History</h2>
 
@@ -266,55 +417,6 @@ Default: <code>undefined</code></p>
 <li>Added CSV support</li>
 <li>Added totalBytes support</li>
 <li>Replaced lodash with grunt.util._</li>
-</ul><h2>Roadmap</h2>
-
-<h3>0.1.2</h3>
-
-<ul>
-<li>Consider ignoreBasePath naming -&gt; CONSIDER USING ~ new syntax</li>
-<li>Consider file templates vs. string templates, processId</li>
-<li>Refactor functions</li>
-<li>Add PxLoader template</li>
-<li>Write docs</li>
-</ul><p>DONE:</p>
-
-<ul>
-<li>Add image width and height support</li>
-</ul><h3>0.1.3</h3>
-
-<ul>
-<li>Add image sprites support</li>
-<li>Add TexturePacker JSON and sprites support</li>
-<li>Add image jpeg+alpha support</li>
-<li>Add jpeg+alpha sprites support</li>
-<li>Consider id generation by groups</li>
-<li>Look for other IDs, id duplication</li>
-<li>Add video specs support</li>
-<li>Add audio template support (zynga audio library)</li>
-</ul><h3>0.1.4</h3>
-
-<ul>
-<li>Test with PreloadJS</li>
-<li>Write template for other preloaders</li>
-<li>Add check for not scanning heavy properties if lastModified is present</li>
-<li>Add test suite</li>
-<li>Publish npm</li>
-<li>Add async support where possible</li>
-<li>Add support for imagemagick</li>
-<li>Add support for Windows</li>
-<li>Remove dependency for execSync</li>
-<li>Add template for grouping by filetype</li>
-<li>Add support for remote file path (absolute)</li>
-</ul><h3>0.1.5</h3>
-
-<ul>
-<li>Create graphics</li>
-<li>Contact Adobe for PreloadJS official endorsement and support</li>
-<li>Contact grunt-preloader-manifest-generator author about duplicated work</li>
-</ul><h3>0.1.6</h3>
-
-<ul>
-<li>Add Grunt 0.5 support</li>
 </ul>
       </section>
     </div>
@@ -322,7 +424,7 @@ Default: <code>undefined</code></p>
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Grunt-preload-assets maintained by <a href="https://github.com/gunta">gunta</a></p>
+        <p class="copyright">grunt-preload-assets maintained by <a href="https://github.com/gunta">gunta</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
