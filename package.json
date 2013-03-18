@@ -1,7 +1,7 @@
 {
   "name": "grunt-preload-assets",
-  "description": "A Grunt plugin for making preload assets manifest. It supports any kind of output format by using templates. Right now there is support for PreloadJS manifest files, JSON output, HTML <img> preload tags, and CSV.",
-  "version": "0.1.0",
+  "description": "A Grunt plugin for making preload assets manifest. It supports any kind of output format by using templates.",
+  "version": "0.1.1",
   "homepage": "https://github.com/gunta/grunt-preload-assets",
   "author": {
     "name": "Gunther Brunner",
@@ -38,6 +38,11 @@
     "grunt": "~0.4.0"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+	"preloadjs",
+	"preload",
+	"manifest",
+	"pxloader",
+	"generator"
   ]
 }

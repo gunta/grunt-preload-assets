@@ -80,5 +80,5 @@ exports.preload_assets = {
 		test.equal(actual, expected);
 
 		test.done();
-	},
+	}
 };
