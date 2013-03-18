@@ -319,12 +319,13 @@ Will produce this:
                 "lastModified": 1363601857000
 	        },
 			{
-				"id": "testFixturesGbot",
-			    "src": "test/fixtures/gbot.svg",
-			    "bytes": 72995,
-			    "md5": "ff590f46",
-			    "base64": "wAAAAAlH1RZRVIAAAAaA9sbNMC0xmIzZ3I6IC0xMCMyNMC0xCMyNMC0xmIz...",
-                "lastModified": 1363601858000
+				"id": "testFixturesGenericButton",
+			    "src": "test/fixtures/genericButton.png",
+			    "bytes": 2832,
+			    "width": 150,
+                "height": 100,
+                "md5": "7a36698a",
+                "base64": "iVBONvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2FTkSuQmCC..."
 	        },
 			{
 				"...": "............"
