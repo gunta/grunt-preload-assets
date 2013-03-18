@@ -11,8 +11,10 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 
 
 Add to your `package.json` entry:
-	
+
+```
 	"grunt-preload-assets": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
+```
 
 Or just use:
 ```shell
@@ -30,15 +32,15 @@ Task targets, files and options may be specified according to the grunt [Configu
 Type: `String`	
 Choices: 	
 
-* `preloadjs-var`
+* `preloadjs`
 * `pxloader`
-* `full-json`
-* `full-json-idkey`
-* `filelist-csv`
-* `custom-sample-var`.
+* `json`
+* `json-idaskey`
+* `csv`
+* `custom-sample`.
 * Or a path to a template file.		
 
-Default: `full-json`
+Default: `json`
 
 Selects a template for generating the assets list.
 The output can be customized by creating your own template. 
@@ -94,7 +96,7 @@ An object containing properties to analyze and include from the assets.
 	Default: `false`	
 	
 	Includes each asset file **md5 hash** trimmed to the first **8 chars**.		
-	Useful when creating a cache system more reliable than one based on timestamps. 
+	Useful when creating a cache system more reliable than one based on timestamps or checking integrity. 
 	
 * #####base64	
 	Type: `Boolean`		
@@ -108,7 +110,7 @@ An object containing properties to analyze and include from the assets.
 	Default: `false`	
 	
 	For `IMAGE` files: Includes each asset file `width` and `height` **in pixels**.		
-	Useful so one doesn't need to manually write the width/height for each file everytime.
+	Useful so one doesn't need to manually write the width/height everytime for each file.
 	
 	*Currently this only works on OS X.*
 	
@@ -128,40 +130,40 @@ An object containing functions to override the default behaviour of **detect**.
 By default it includes the following object.
 
 ```js
-			process: {
-				src: function (file) {
-					return file;
-				},
-				id: function (file) {
-					return scan.idBasedOnFilenameCamelized(file);
-				},
-				type: function (file) {
-					return scan.typeByExtension(file);
-				},
-				bytes: function (file) {
-					return scan.fileSizeInBytes(file);
-				},
-				totalBytes: function (bytes) {
-					return bytes;
-				},
-				dimensions: function (file) {
-					return scan.dimensionsInPixels(file);
-				},
-				md5: function (file) {
-					return scan.md5hash(file, 8);
-				},
-				lastModified: function (file) {
-					return scan.lastModifiedUnixTime(file);
-				},
-				base64: function (file) {
-					return scan.base64encode(file);
-				}
-			}
+process: {
+	src: function (file) {
+		return file;
+	},
+	id: function (file) {
+		return scan.idBasedOnFilenameCamelized(file);
+	},
+	type: function (file) {
+		return scan.typeByExtension(file);
+	},
+	bytes: function (file) {
+		return scan.fileSizeInBytes(file);
+	},
+	totalBytes: function (bytes) {
+		return bytes;
+	},
+	dimensions: function (file) {
+		return scan.dimensionsInPixels(file);
+	},
+	md5: function (file) {
+		return scan.md5hash(file, 8);
+	},
+	lastModified: function (file) {
+		return scan.lastModifiedUnixTime(file);
+	},
+	base64: function (file) {
+		return scan.base64encode(file);
+	}
+}
 ```
 
 ## Usage examples
 
-### Basic usage 
+### Basic usage
 
 ```js
 // Project configuration.
