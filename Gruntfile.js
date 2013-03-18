@@ -60,7 +60,7 @@ module.exports = function (grunt) {
 						bytes: true,
 						totalBytes: true,
 						src: true,
-						lastModified: true,
+						lastModified: false,
 						md5: true,
 						base64: true,
 						dimensions: true

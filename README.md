@@ -307,7 +307,7 @@ Will produce this:
 			    "src": "test/fixtures/Thunder.ogg",
 			    "bytes": 71083,
 			    "md5": "076b3c87",
-			    "base64": "1RZRVIAAAAaAASUQzAwAAAAAlH1RZRVIAAAAaAAAAMjAxMC0xMC0ywNjowM..."
+			    "base64": "1RZRVIAAAAaAASUQzAwAAAAAlH1RZRVIAAAAaAAAAMjAxMC0xMC0ywNjowM...",
                 "lastModified": 1363601857000
 	        },
 			{
