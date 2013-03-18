@@ -2,7 +2,7 @@
 
 > A Grunt plugin for generating preload assets manifest files.	
 > Supports [PreloadJS](http://www.createjs.com/#!/PreloadJS), [PxLoader](http://thinkpixellab.com/pxloader/), JSON, JS, CSV, and unlimited support for multiple formats by using [underscore templates](http://www.2ality.com/2012/06/underscore-templates.html).
-> Submitted by [Gunther Brunner](https://github.com/gunta/).
+> By [@gunta](https://github.com/gunta/).
 
 
 ## Getting Started
@@ -13,12 +13,12 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 Add to your `package.json` entry:
 
 ```
-	"grunt-preload-assets": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
+"grunt-preload-assets": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
 ```
 
 Or just use:
 ```shell
-	npm install git+ssh://git@github.com:gunta/grunt-preload-assets.git --save-dev
+npm install git+ssh://git@github.com:gunta/grunt-preload-assets.git --save-dev
 ```
 
 ## Preload Assets task
@@ -37,13 +37,14 @@ Choices:
 * `json`
 * `json-idaskey`
 * `csv`
-* `custom-sample`.
+* `custom-sample`
 * Or a path to a template file.		
 
 Default: `json`
 
 Selects a template for generating the assets list.
-The output can be customized by creating your own template. 
+The output can be customized by creating your own [underscore template](http://www.2ality.com/2012/06/underscore-templates.html). 
+
 
 #### detect
 Type: `Object`
@@ -116,6 +117,15 @@ An object containing properties to analyze and include from the assets.
 	
 *Note that not every template needs to add support to all these properties.*
 	
+
+### Advanced Options
+
+#### key
+Type: `String`	
+Default: `filesManifest`
+
+Specifies a key name for the root container.
+
 ####ignoreBasePath
 Type: `String`	
 Default: `undefined`
