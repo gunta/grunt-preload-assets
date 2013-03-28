@@ -141,45 +141,41 @@ module.exports = function (grunt) {
 			template: 'json',
 			basePath: undefined,
 			ignoreBasePath: undefined,
-			detect: {
-				src: true,
-				id: true,
-				type: true,
-				bytes: false,
-				totalBytes: false,
-				dimensions: false,
-				md5: false,
-				lastModified: false,
-				base64: false
+			detectSrc: true,
+			detectId: true,
+			detectType: true,
+			detectBytes: false,
+			detectTotalBytes: false,
+			detectDimensions: false,
+			detectMD5: false,
+			detectLastModified: false,
+			detectBase64: false,
+			processSrc: function (file) {
+				return file;
 			},
-			process: {
-				src: function (file) {
-					return file;
-				},
-				id: function (file) {
-					return scan.idBasedOnFilenameCamelized(file);
-				},
-				type: function (file) {
-					return scan.typeByExtension(file);
-				},
-				bytes: function (file) {
-					return scan.fileSizeInBytes(file);
-				},
-				totalBytes: function (bytes) {
-					return bytes;
-				},
-				dimensions: function (file) {
-					return scan.dimensionsInPixels(file);
-				},
-				md5: function (file) {
-					return scan.md5hash(file, 8);
-				},
-				lastModified: function (file) {
-					return scan.lastModifiedUnixTime(file);
-				},
-				base64: function (file) {
-					return scan.base64encode(file);
-				}
+			processId: function (file) {
+				return scan.idBasedOnFilenameCamelized(file);
+			},
+			processType: function (file) {
+				return scan.typeByExtension(file);
+			},
+			processBytes: function (file) {
+				return scan.fileSizeInBytes(file);
+			},
+			processTotalBytes: function (bytes) {
+				return bytes;
+			},
+			processDimensions: function (file) {
+				return scan.dimensionsInPixels(file);
+			},
+			processMD5: function (file) {
+				return scan.md5hash(file, 8);
+			},
+			processLastModified: function (file) {
+				return scan.lastModifiedUnixTime(file);
+			},
+			processBase64: function (file) {
+				return scan.base64encode(file);
 			}
 		});
 
@@ -196,7 +192,7 @@ module.exports = function (grunt) {
 		}
 
 		// TODO: USE GRUNT
-		var tpl = options.process.src(grunt.file.read(options.template));
+		var tpl = options.processSrc(grunt.file.read(options.template));
 
 		var outputData = {};
 		outputData.key = options.key;
@@ -258,20 +254,20 @@ module.exports = function (grunt) {
 
 			// Generate ID for each file
 			_.each(outputData.files, function (f) {
-				if (options.detect.id) {
-					f.id = options.process.id(f);
+				if (options.detectId) {
+					f.id = options.processId(f);
 				}
-				if (options.detect.type) {
-					f.type = options.process.type(f);
+				if (options.detectType) {
+					f.type = options.processType(f);
 				}
-				if (options.detect.bytes) {
-					f.bytes = options.process.bytes(f.origSrc);
+				if (options.detectBytes) {
+					f.bytes = options.processBytes(f.origSrc);
 				}
-				if (options.detect.totalBytes) {
+				if (options.detectTotalBytes) {
 					totalBytes += f.bytes;
 				}
-				if (options.detect.dimensions) {
-					var dimensions = options.process.dimensions(f.origSrc);
+				if (options.detectDimensions) {
+					var dimensions = options.processDimensions(f.origSrc);
 					if (dimensions.width !== -1) {
 						f.width = dimensions.width;
 					}
@@ -279,22 +275,22 @@ module.exports = function (grunt) {
 						f.height = dimensions.height;
 					}
 				}
-				if (options.detect.md5) {
-					f.md5 = options.process.md5(f.origSrc);
+				if (options.detectMD5) {
+					f.md5 = options.processMD5(f.origSrc);
 				}
-				if (options.detect.lastModified) {
-					f.lastModified = options.process.lastModified(f.origSrc);
+				if (options.detectLastModified) {
+					f.lastModified = options.processLastModified(f.origSrc);
 				}
-				if (options.detect.base64) {
-					f.base64 = options.process.base64(f.origSrc);
+				if (options.detectBase64) {
+					f.base64 = options.processBase64(f.origSrc);
 				}
 			});
 
 			// After all files scanned
 			grunt.log.writeln();
 
-			if (options.detect.totalBytes) {
-				outputData.totalBytes = options.process.totalBytes(totalBytes);
+			if (options.detectTotalBytes) {
+				outputData.totalBytes = options.processTotalBytes(totalBytes);
 			}
 
 			var compiled;

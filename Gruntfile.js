@@ -55,16 +55,14 @@ module.exports = function (grunt) {
 			json_full_options: {
 				options: {
 					template: 'json',
-					detect: {
-						id: true,
-						bytes: true,
-						totalBytes: true,
-						src: true,
-						lastModified: false,
-						md5: true,
-						base64: true,
-						dimensions: true
-					}
+					detectId: true,
+					detectBytes: true,
+					detectTotalBytes: true,
+					detectSrc: true,
+					detectLastModified: false,
+					detectMD5: true,
+					detectBase64: true,
+					detectDimensions: true
 				},
 				files: {
 					'tmp/json_full_options.json': ['test/fixtures/*.*']

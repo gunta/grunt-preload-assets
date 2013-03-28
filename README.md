@@ -51,74 +51,71 @@ Selects a template for generating the assets list.
 The output can be customized by creating your own [underscore template](http://www.2ality.com/2012/06/underscore-templates.html). 
 
 
-#### detect
-Type: `Object`
+### Detecting options
 
-An object containing properties to analyze and include from the assets. 
+####detectId
+Type: `Boolean`		
+Default: `true`
 
-* #####id
-	Type: `Boolean`		
-	Default: `true`
+Includes an **identifier** in the output. 	
+By default, it **camelizes the filename and removes the extension**.
 	
-	Includes an **identifier** in the output. 	
-	By default, it **camelizes the filename and removes the extension**.
+####detectSrc
+Type: `Boolean`		
+Default: `true`
+
+Includes the file path.
 	
-* #####src
-	Type: `Boolean`		
-	Default: `true`
+####detectType
+Type: `Boolean`		
+Default: `true`
+
+Analyzes each asset file type and includes it. 	
+By default, the supported file types are `IMAGE` `SOUND` `JSON` `XML` `CSS` `JAVASCRIPT` `SVG` and `TEXT`.
 	
-	Includes the file path.
+####detectBytes	
+Type: `Boolean`		
+Default: `false`	
+
+Includes each asset file size **in bytes**.		
+Useful when creating realistic progress bars.
 	
-* #####type
-	Type: `Boolean`		
-	Default: `true`
-	
-	Analyzes each asset file type and includes it. 	
-	By default, the supported file types are `IMAGE` `SOUND` `JSON` `XML` `CSS` `JAVASCRIPT` `SVG` and `TEXT`.
-	
-* #####bytes	
-	Type: `Boolean`		
-	Default: `false`	
-	
-	Includes each asset file size **in bytes**.		
-	Useful when creating realistic progress bars.
-	
-* #####totalBytes	
-	Type: `Boolean`		
-	Default: `false`	
-	
-	Includes the sum of all assets file sizes **in bytes**. 	
-	Useful when creating realistic progress bars.
-	
-* #####lastModified	
-	Type: `Boolean`		
-	Default: `false`	
-	
-	Includes each asset file last modified timestamp **in unixtime**. 	
-	Useful when comparing file changes or implementing a cache system.
-	
-* #####md5	
-	Type: `Boolean`		
-	Default: `false`	
-	
-	Includes each asset file **md5 hash** trimmed to the first **8 chars**.		
-	Useful when creating a cache system more reliable than one based on timestamps or checking integrity. 
-	
-* #####base64	
-	Type: `Boolean`		
-	Default: `false`	
-	
-	Includes each entire asset file encoded in a **base64 string**.		
-	Useful when the asset file sizes are small, to reduce http requests.
-	
-* #####dimensions	
-	Type: `Boolean`		
-	Default: `false`	
-	
-	For `IMAGE` files: Includes each asset file `width` and `height` **in pixels**.		
-	Useful so one doesn't need to manually write the width/height everytime for each file.
-	
-	*Currently this only works on OS X.*
+####detectTotalBytes	
+Type: `Boolean`		
+Default: `false`	
+
+Includes the sum of all assets file sizes **in bytes**. 	
+Useful when creating realistic progress bars.
+
+####detectLastModified	
+Type: `Boolean`		
+Default: `false`	
+
+Includes each asset file last modified timestamp **in unixtime**. 	
+Useful when comparing file changes or implementing a cache system.
+
+####detectMD5	
+Type: `Boolean`		
+Default: `false`	
+
+Includes each asset file **md5 hash** trimmed to the first **8 chars**.		
+Useful when creating a cache system more reliable than one based on timestamps or checking integrity. 
+
+####detectBase64	
+Type: `Boolean`		
+Default: `false`	
+
+Includes each entire asset file encoded in a **base64 string**.		
+Useful when the asset file sizes are small, to reduce http requests.
+
+####detectDimensions	
+Type: `Boolean`		
+Default: `false`	
+
+For `IMAGE` files: Includes each asset file `width` and `height` **in pixels**.		
+Useful so one doesn't need to manually write the width/height everytime for each file.
+
+*Currently this only works on OS X (Waiting your pull request)* 😉
 	
 *Note that not every template needs to add support to all these properties.*
 	
@@ -137,44 +134,60 @@ Default: `undefined`
 
 Ignores a specific base path from the specified `src`.
 
-#### process
-Type: `Object`
+#### processSrc
+Type: `Function`	
+Parameter: `String` filename
 
-An object containing functions to override the default behaviour of **detect**. 
+Overrides the function for processing the src filename.
 
-By default it includes the following object.
+#### processId
+Type: `Function`	
+Parameter: `String` filename
 
-```js
-process: {
-	src: function (file) {
-		return file;
-	},
-	id: function (file) {
-		return scan.idBasedOnFilenameCamelized(file);
-	},
-	type: function (file) {
-		return scan.typeByExtension(file);
-	},
-	bytes: function (file) {
-		return scan.fileSizeInBytes(file);
-	},
-	totalBytes: function (bytes) {
-		return bytes;
-	},
-	dimensions: function (file) {
-		return scan.dimensionsInPixels(file);
-	},
-	md5: function (file) {
-		return scan.md5hash(file, 8);
-	},
-	lastModified: function (file) {
-		return scan.lastModifiedUnixTime(file);
-	},
-	base64: function (file) {
-		return scan.base64encode(file);
-	}
-}
-```
+Overrides the function for processing the id.
+
+#### processType
+Type: `Function`	
+Parameter: `String` filename
+
+Overrides the function for processing the file type.
+
+#### processBytes
+Type: `Function`	
+Parameter: `Number` bytes
+
+Overrides the function for processing the number of bytes.
+
+#### processTotalBytes
+Type: `Function`	
+Parameter: `String` filename
+
+Overrides the function for processing the number of total bytes.
+
+#### processDimensions
+Type: `Function`	
+Parameter: `String` filename
+
+Overrides the function for processing the dimensions of the file.
+
+#### processMD5
+Type: `Function`	
+Parameter: `String` filename
+
+Overrides the function for processing the md5 hash for the file.
+
+#### processLastModified
+Type: `Function`	
+Parameter: `String` filename
+
+Overrides the function for processing the last modified date.
+
+#### processBase64
+Type: `Function`	
+Parameter: `String` filename
+
+Overrides the function for processing the base64 encode of the file.
+
 
 ## Usage examples
 
@@ -269,16 +282,14 @@ grunt.initConfig({
 		my_target: {
 			options: {
 				template: 'json',
-				detect: {
-					id: true,
-					bytes: true,
-					totalBytes: true,
-					src: true,
-					lastModified: true,
-					md5: true,
-					base64: true,
-					dimensions: true
-				}
+				detectId: true,
+				detectBytes: true,
+				detectTotalBytes: true,
+				detectSrc: true,
+				detectLastModified: false,
+				detectMD5: true,
+				detectBase64: true,
+				detectDimensions: true
 			},
 			files: {
 				'dest/filesmanifest.js': ['test/fixtures/*.*']
