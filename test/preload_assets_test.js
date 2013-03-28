@@ -63,11 +63,11 @@ exports.preload_assets = {
 
 		test.done();
 	},
-	json_idaskey_options: function (test) {
+	json_hash_options: function (test) {
 		test.expect(1);
 
-		var actual = grunt.file.read('tmp/json_idaskey_options.json');
-		var expected = grunt.file.read('test/expected/json_idaskey_options.json');
+		var actual = grunt.file.read('tmp/json_hash_options.json');
+		var expected = grunt.file.read('test/expected/json_hash_options.json');
 		test.equal(actual, expected);
 
 		test.done();

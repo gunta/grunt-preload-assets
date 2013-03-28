@@ -68,13 +68,13 @@ module.exports = function (grunt) {
 					'tmp/json_full_options.json': ['test/fixtures/*.*']
 				}
 			},
-			json_idaskey_options: {
+			json_hash_options: {
 				options: {
-					template: 'json-idaskey',
+					template: 'json-hash',
 					ignoreBasePath: 'test/'
 				},
 				files: {
-					'tmp/json_idaskey_options.json': ['test/fixtures/*.*']
+					'tmp/json_hash_options.json': ['test/fixtures/*.*']
 				}
 			},
 			csv_options: {
