@@ -375,6 +375,11 @@ test/fixtures/CabinBoy.mp3,test/fixtures/Thunder.ogg,test/fixtures/font.css,test
 
 ## Release History
 
+### 0.1.2
+- Changed option parameters to a single hash because they would be overridden with a new object if passed
+- Changed idaskey to hash for better naming
+- Added bytes to PreloadJS template
+
 ### 0.1.1
 
 - Added timestamp support
