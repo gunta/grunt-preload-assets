@@ -1,7 +1,7 @@
 {
   "name": "grunt-preload-assets",
   "description": "A Grunt plugin for making preload assets manifest. It supports any kind of output format by using templates.",
-  "version": "0.1.1",
+  "version": "0.2",
   "homepage": "https://github.com/gunta/grunt-preload-assets",
   "author": {
     "name": "Gunther Brunner",
