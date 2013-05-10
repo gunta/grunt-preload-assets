@@ -1,4 +1,4 @@
-# grunt-preload-assets (WIP) [![Build Status](https://travis-ci.org/gunta/grunt-preload-assets.png)](http://travis-ci.org/gunta/grunt-preload-assets)
+# grunt-preload-assets
 
 > A Grunt plugin for generating preload assets manifest files.	
 > Supports [PreloadJS](http://www.createjs.com/#!/PreloadJS), [PxLoader](http://thinkpixellab.com/pxloader/), JSON, JS, CSV, and unlimited support for multiple formats by using [underscore templates](http://www.2ality.com/2012/06/underscore-templates.html).
@@ -12,18 +12,18 @@
 
 ## Getting Started
 
+This plugin requires Grunt `~0.4.0`
+
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-
-Add to your `package.json` entry:
-
-```
-"grunt-preload-assets": "git+ssh://git@github.com:gunta/grunt-preload-assets.git"
-```
-
-Or just use:
 ```shell
-npm install git+ssh://git@github.com:gunta/grunt-preload-assets.git --save-dev
+npm install grunt-preload-assets --save-dev
+```
+
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
+grunt.loadNpmTasks('grunt-preload-assets');
 ```
 
 ## Preload Assets task
@@ -374,6 +374,9 @@ test/fixtures/CabinBoy.mp3,test/fixtures/Thunder.ogg,test/fixtures/font.css,test
 
 
 ## Release History
+
+### 0.2.1
+- Updated package information
 
 ### 0.2.0
 - First NPM package release
