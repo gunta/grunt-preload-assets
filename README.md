@@ -375,7 +375,7 @@ test/fixtures/CabinBoy.mp3,test/fixtures/Thunder.ogg,test/fixtures/font.css,test
 
 ## Release History
 
-### 0.2
+### 0.2.0
 - First NPM package release
 
 ### 0.1.2
