@@ -82,86 +82,72 @@ Choices:    </p>
 <p>Selects a template for generating the assets list.
 The output can be customized by creating your own <a href="http://www.2ality.com/2012/06/underscore-templates.html">underscore template</a>. </p>
 
-<h4>detect</h4>
+<h3>Detecting options</h3>
 
-<p>Type: <code>Object</code></p>
-
-<p>An object containing properties to analyze and include from the assets. </p>
-
-<ul>
-<li>
-<h5>id</h5>
+<h4>detectId</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>true</code></p>
 
 <p>Includes an <strong>identifier</strong> in the output.<br>
 By default, it <strong>camelizes the filename and removes the extension</strong>.</p>
-</li>
-<li>
-<h5>src</h5>
+
+<h4>detectSrc</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>true</code></p>
 
 <p>Includes the file path.</p>
-</li>
-<li>
-<h5>type</h5>
+
+<h4>detectType</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>true</code></p>
 
 <p>Analyzes each asset file type and includes it.<br>
 By default, the supported file types are <code>IMAGE</code> <code>SOUND</code> <code>JSON</code> <code>XML</code> <code>CSS</code> <code>JAVASCRIPT</code> <code>SVG</code> and <code>TEXT</code>.</p>
-</li>
-<li>
-<h5>bytes</h5>
+
+<h4>detectBytes</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>false</code>    </p>
 
 <p>Includes each asset file size <strong>in bytes</strong>.<br>
 Useful when creating realistic progress bars.</p>
-</li>
-<li>
-<h5>totalBytes</h5>
+
+<h4>detectTotalBytes</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>false</code>    </p>
 
 <p>Includes the sum of all assets file sizes <strong>in bytes</strong>.<br>
 Useful when creating realistic progress bars.</p>
-</li>
-<li>
-<h5>lastModified</h5>
+
+<h4>detectLastModified</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>false</code>    </p>
 
 <p>Includes each asset file last modified timestamp <strong>in unixtime</strong>.<br>
 Useful when comparing file changes or implementing a cache system.</p>
-</li>
-<li>
-<h5>md5</h5>
+
+<h4>detectMD5</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>false</code>    </p>
 
 <p>Includes each asset file <strong>md5 hash</strong> trimmed to the first <strong>8 chars</strong>.<br>
 Useful when creating a cache system more reliable than one based on timestamps or checking integrity. </p>
-</li>
-<li>
-<h5>base64</h5>
+
+<h4>detectBase64</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>false</code>    </p>
 
 <p>Includes each entire asset file encoded in a <strong>base64 string</strong>.<br>
 Useful when the asset file sizes are small, to reduce http requests.</p>
-</li>
-<li>
-<h5>dimensions</h5>
+
+<h4>detectDimensions</h4>
 
 <p>Type: <code>Boolean</code><br>
 Default: <code>false</code>    </p>
@@ -169,9 +155,9 @@ Default: <code>false</code>    </p>
 <p>For <code>IMAGE</code> files: Includes each asset file <code>width</code> and <code>height</code> <strong>in pixels</strong>.<br>
 Useful so one doesn't need to manually write the width/height everytime for each file.</p>
 
-<p><em>Currently this only works on OS X.</em></p>
-</li>
-</ul><p><em>Note that not every template needs to add support to all these properties.</em></p>
+<p><em>Currently this only works on OS X (Waiting your pull request)</em> 😉</p>
+
+<p><em>Note that not every template needs to add support to all these properties.</em></p>
 
 <h3>Advanced Options</h3>
 
@@ -189,44 +175,68 @@ Default: <code>undefined</code></p>
 
 <p>Ignores a specific base path from the specified <code>src</code>.</p>
 
-<h4>process</h4>
+<h4>processSrc</h4>
 
-<p>Type: <code>Object</code></p>
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
 
-<p>An object containing functions to override the default behaviour of <strong>detect</strong>. </p>
+<p>Overrides the function for processing the src filename.</p>
 
-<p>By default it includes the following object.</p>
+<h4>processId</h4>
 
-<div class="highlight"><pre><span class="nx">process</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">src</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">file</span><span class="p">;</span>
-    <span class="p">},</span>
-    <span class="nx">id</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">idBasedOnFilenameCamelized</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">type</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">typeByExtension</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">bytes</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">fileSizeInBytes</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">totalBytes</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">bytes</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">bytes</span><span class="p">;</span>
-    <span class="p">},</span>
-    <span class="nx">dimensions</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">dimensionsInPixels</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">md5</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">md5hash</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">lastModified</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">lastModifiedUnixTime</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">},</span>
-    <span class="nx">base64</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">scan</span><span class="p">.</span><span class="nx">base64encode</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the id.</p>
+
+<h4>processType</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the file type.</p>
+
+<h4>processBytes</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>Number</code> bytes</p>
+
+<p>Overrides the function for processing the number of bytes.</p>
+
+<h4>processTotalBytes</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the number of total bytes.</p>
+
+<h4>processDimensions</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the dimensions of the file.</p>
+
+<h4>processMD5</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the md5 hash for the file.</p>
+
+<h4>processLastModified</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the last modified date.</p>
+
+<h4>processBase64</h4>
+
+<p>Type: <code>Function</code><br>
+Parameter: <code>String</code> filename</p>
+
+<p>Overrides the function for processing the base64 encode of the file.</p>
 
 <h2>Usage examples</h2>
 
@@ -316,16 +326,14 @@ Default: <code>undefined</code></p>
         <span class="nx">my_target</span><span class="o">:</span> <span class="p">{</span>
             <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
                 <span class="nx">template</span><span class="o">:</span> <span class="s1">'json'</span><span class="p">,</span>
-                <span class="nx">detect</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="nx">id</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">bytes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">totalBytes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">src</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">lastModified</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">md5</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">base64</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">dimensions</span><span class="o">:</span> <span class="kc">true</span>
-                <span class="p">}</span>
+                <span class="nx">detectId</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">detectBytes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">detectTotalBytes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">detectSrc</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">detectLastModified</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nx">detectMD5</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">detectBase64</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">detectDimensions</span><span class="o">:</span> <span class="kc">true</span>
             <span class="p">},</span>
             <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
                 <span class="s1">'dest/filesmanifest.js'</span><span class="o">:</span> <span class="p">[</span><span class="s1">'test/fixtures/*.*'</span><span class="p">]</span>
@@ -406,7 +414,17 @@ Default: <code>undefined</code></p>
 
 <h2>Release History</h2>
 
-<h3>0.1.1</h3>
+<h3>0.2.0</h3>
+
+<ul>
+<li>First NPM package release</li>
+</ul><h3>0.1.2</h3>
+
+<ul>
+<li>Changed option parameters to a single hash because they would be overridden with a new object if passed</li>
+<li>Changed idaskey to hash for better naming</li>
+<li>Added bytes to PreloadJS template</li>
+</ul><h3>0.1.1</h3>
 
 <ul>
 <li>Added timestamp support</li>
@@ -429,7 +447,17 @@ Default: <code>undefined</code></p>
       </footer>
     </div>
 
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40807861-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
 
   </body>
 </html>
