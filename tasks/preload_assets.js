@@ -13,16 +13,8 @@ module.exports = function (grunt) {
 	// NodeJS libs
 	var path = require('path'),
 		fs = require('fs'),
-		crypto = require('crypto');
-
-	// Image libs
-	var imagesEngine = 'sips';
-	var execSync;
-
-	if (imagesEngine === 'sips') {
-		execSync = require('execSync');
-	}
-
+		crypto = require('crypto'),
+		sizeOf = require('image-size');
 
 	// Grunt utils
 	var _ = grunt.util._;
@@ -82,40 +74,11 @@ module.exports = function (grunt) {
 			return stats.mtime.getTime();
 		},
 		dimensionsInPixels: function (filepath) {
-			var dimensions = {
-				width: -1,
-				height: -1
-			};
-
-			if (imagesEngine === 'sips') {
-				var commandToExecute = 'sips "' + filepath + '" -g pixelHeight -g pixelWidth';
-				var sipsOutput = execSync.stdout(commandToExecute).split('\n');
-
-				grunt.log.write(".");
-
-				// 4 lines: good signal that we have good output
-				if (sipsOutput.length === 4) {
-					var heightFound = sipsOutput[1].match(/pixelHeight: (\d+)/);
-					if (heightFound.length > 1) {
-						// Height found
-						dimensions.height = parseInt(heightFound[1], 10);
-					}
-					var widthFound = sipsOutput[2].match(/pixelWidth: (\d+)/);
-					if (widthFound.length > 1) {
-						// Width found
-						dimensions.width = parseInt(widthFound[1], 10);
-					}
-				} else {
-					// No image
-				}
+			try {
+				return sizeOf(filepath);
+			} catch (error){
+				return {height: -1, width: -1};
 			}
-
-			// TODO: scan dimensions
-//			if (typeByExtension(filepath) === "IMAGE") {
-//				console.log(filepath)
-//			}
-
-			return dimensions;
 		},
 		md5hash: function (filepath, digits) {
 			// TODO: scan md5
