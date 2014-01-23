@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 
 	var scan = {
 		idBasedOnFilenameCamelized: function (file) {
-			return _.camelize(_.strLeftBack(path.normalize(file.src), path.extname(file.src)).replace(/\//g, '_'));
+			return _.camelize(_.strLeftBack(path.normalize(file.src), path.extname(file.src)).replace(/[\\\/]/g, '_'));
 		},
 		typeByExtension: typeByExtension,
 		fileSizeInBytes: function (filepath) {
