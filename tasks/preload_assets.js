@@ -52,6 +52,7 @@ module.exports = function (grunt) {
 			case "ogg":
 			case "mp3":
 			case "wav":
+			case "m4a":
 				return "SOUND";
 			case "json":
 				return "JSON";
