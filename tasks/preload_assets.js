@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 	var execSync;
 
 	if (imagesEngine === 'sips') {
-		execSync = require('execSync');
+		execSync = require('sync-exec');
 	}
 
 
